@@ -1,0 +1,29 @@
+#Rabbit MQ / Discovery Properties for FeatureToggle Service
+dev,Discovery,FeatureToggleService,ControllerClassName,org.piangles.core.services.remoting.rabbit.ReqRespController
+dev,Discovery,FeatureToggleService,HandlerClassName,org.piangles.core.services.remoting.rabbit.ReqRespHandler
+dev,Discovery,FeatureToggleService,RequestCreatorClassName,org.piangles.core.services.remoting.handlers.DefaultRequestCreator
+dev,Discovery,FeatureToggleService,DecoderClassName,org.piangles.core.util.coding.JavaDecoder
+dev,Discovery,FeatureToggleService,EncoderClassName,org.piangles.core.util.coding.JavaEncoder
+dev,Discovery,FeatureToggleService,SessionValidatorClassName,org.piangles.backbone.services.session.PassThruSessionValidator
+dev,Discovery,FeatureToggleService,PreApprovedSessionId,TODOSessionId
+dev,Discovery,FeatureToggleService,RMQHostName,<TBD>
+dev,Discovery,FeatureToggleService,RMQPort,5671
+dev,Discovery,FeatureToggleService,RMQLoginId,<TBD>
+dev,Discovery,FeatureToggleService,RMQPassword,<TBD>
+dev,Discovery,FeatureToggleService,DecrypterClassName,org.piangles.core.util.central.AWSCentralDecrypter
+dev,Discovery,FeatureToggleService,DecrypterAuthorizationId,8e33bdae-a526-4d50-bf07-8f7c6c298c23
+dev,Discovery,FeatureToggleService,Topic,FeatureToggleServiceReqRespTopic
+dev,Discovery,FeatureToggleService,TimeOut,90000
+
+#Session
+dev,Tier1Config,SessionManagementService,ManagedService44,FeatureToggleService
+
+#Config for FeatureToggleService
+dev,58185aed-c78d-4694-8e5f-f0a03d29cbd8,FeatureToggleService,FeatureServiceCofiguration,EnabledByDefault,true
+
+dev,70cdde51-98b8-445c-87dd-fd5cc7da7288,FeatureToggleService,FeatureToggleServiceDAO,DriverClassName,org.postgresql.Driver
+dev,70cdde51-98b8-445c-87dd-fd5cc7da7288,FeatureToggleService,FeatureToggleServiceDAO,LoginId,<TBD>
+dev,70cdde51-98b8-445c-87dd-fd5cc7da7288,FeatureToggleService,FeatureToggleServiceDAO,Password,<TBD>
+dev,70cdde51-98b8-445c-87dd-fd5cc7da7288,FeatureToggleService,FeatureToggleServiceDAO,URL,<TBD>
+dev,70cdde51-98b8-445c-87dd-fd5cc7da7288,FeatureToggleService,FeatureToggleServiceDAO,DecrypterClassName,org.piangles.core.util.central.AWSCentralDecrypter
+dev,70cdde51-98b8-445c-87dd-fd5cc7da7288,FeatureToggleService,FeatureToggleServiceDAO,DecrypterAuthorizationId,7cf24047-2530-4c32-84da-bffb242ede22
