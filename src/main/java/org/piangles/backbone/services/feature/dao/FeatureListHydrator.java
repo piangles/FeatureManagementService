@@ -1,7 +1,5 @@
 package org.piangles.backbone.services.feature.dao;
 
-import com.zurohq.core.util.CheckedFunction;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -9,7 +7,7 @@ import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureType;
 import org.piangles.backbone.services.feature.FeatureValidator;
 
-public class FeatureListHydrator implements CheckedFunction<ResultSet, Feature>
+public class FeatureListHydrator
 {
 	private static final String FEATURE_ID = "feature_id";
 	private static final String FEATURE_TYPE = "feature_type";
@@ -20,7 +18,6 @@ public class FeatureListHydrator implements CheckedFunction<ResultSet, Feature>
 	private static final String ENABLED = "enabled";
 	private static final String ACTIONABLE = "actionable";
 
-	@Override
 	public Feature apply(ResultSet resultSet) throws SQLException
 	{
 		Feature feature = null;

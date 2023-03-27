@@ -1,24 +1,41 @@
 package org.piangles.backbone.services.feature;
 
-import org.piangles.backbone.services.feature.handlers.GetFeatureListHandler;
+import org.piangles.backbone.services.Locator;
+import org.piangles.backbone.services.config.Configuration;
+import org.piangles.backbone.services.feature.dao.FeatureListHydrator;
+import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAO;
+import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAOImpl;
+import org.piangles.backbone.services.feature.handlers.GetFeatureListForUserHandler;
 import org.piangles.backbone.services.logging.LoggingService;
 
 public class FeatureToggleServiceImpl implements FeatureToggleService
 {
-	private final LoggingService logger;
-	private final GetFeatureListHandler getFeatureListForUser;
+	private static final String COMPONENT_ID = "58185aed-c78d-4694-8e5f-f0a03d29cbd8";
+	
+	private final LoggingService logger  = Locator.getInstance().getLoggingService();
+	
+	private final FeatureToggleConfiguration ftConfig;
+	
+	private final FeatureToggleServiceDAO ftsDAO; 
+	
+	private final GetFeatureListForUserHandler getFeatureListForUserHandler;
 
-	public FeatureToggleServiceImpl(LoggingService logger, GetFeatureListHandler getFeatureListForUser)
+	public FeatureToggleServiceImpl() throws Exception
 	{
-		this.logger = logger;
-		this.getFeatureListForUser = getFeatureListForUser;
+		final Configuration config = Locator.getInstance().getConfigService().getConfiguration(COMPONENT_ID);
+		
+		ftConfig = new FeatureToggleConfiguration(config);
+		
+		ftsDAO = new FeatureToggleServiceDAOImpl(new FeatureListHydrator());
+		
+		this.getFeatureListForUserHandler = new GetFeatureListForUserHandler(logger, ftConfig, ftsDAO);
 	}
 
 	@Override
 	public FeatureList getFeatures(String userId, String bizId) throws FeatureException
 	{
 		logger.info("Retrieving Features for userId: " + userId + " bizId: " + bizId);
-		
-		return getFeatureListForUser.apply(userId, bizId);
+
+		return getFeatureListForUserHandler.handle(userId, bizId);
 	}
 }

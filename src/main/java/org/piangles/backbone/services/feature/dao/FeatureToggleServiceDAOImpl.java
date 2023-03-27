@@ -1,5 +1,7 @@
 package org.piangles.backbone.services.feature.dao;
 
+import java.util.List;
+
 import org.piangles.backbone.services.config.DefaultConfigProvider;
 import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureList;
@@ -7,8 +9,6 @@ import org.piangles.backbone.services.feature.FeatureToggleService;
 import org.piangles.core.dao.DAOException;
 import org.piangles.core.dao.rdbms.AbstractDAO;
 import org.piangles.core.resources.ResourceManager;
-
-import java.util.List;
 
 public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements FeatureToggleServiceDAO
 {
@@ -20,8 +20,8 @@ public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements Fe
 	public FeatureToggleServiceDAOImpl(FeatureListHydrator hydrator) throws Exception
 	{
 		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureToggleService.NAME, COMPONENT_ID)));
-		this.hydrator = hydrator;
-
+		
+		this.hydrator = new FeatureListHydrator();
 	}
 
 	@Override

@@ -7,20 +7,21 @@ import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAO;
 import org.piangles.backbone.services.logging.LoggingService;
 import org.piangles.core.dao.DAOException;
 
-public class GetFeatureListHandler
+public class GetFeatureListForUserHandler
 {
 	private final LoggingService logger;
+	@SuppressWarnings("unused")
 	private final FeatureToggleConfiguration ftConfig;
 	private final FeatureToggleServiceDAO ftsDAO;
 
-	public GetFeatureListHandler(LoggingService logger, FeatureToggleConfiguration ftConfig, FeatureToggleServiceDAO ftsDAO)
+	public GetFeatureListForUserHandler(LoggingService logger, FeatureToggleConfiguration ftConfig, FeatureToggleServiceDAO ftsDAO)
 	{
 		this.logger = logger;
 		this.ftConfig = ftConfig;
 		this.ftsDAO = ftsDAO;
 	}
 
-	public FeatureList apply(String userId, String bizId) throws FeatureException
+	public FeatureList handle(String userId, String bizId) throws FeatureException
 	{
 		FeatureList featureList = null;
 
