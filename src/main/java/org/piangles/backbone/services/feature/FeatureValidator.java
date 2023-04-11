@@ -23,7 +23,7 @@ public class FeatureValidator
 
 	public boolean isValid(Feature feature)
 	{
-		return !validateIdFormat(feature);// || !validateFeatureState(feature);
+		return validateIdFormat(feature);// && validateFeatureState(feature);
 	}
 
 	public String getErrorMessage()
@@ -34,13 +34,13 @@ public class FeatureValidator
 	private boolean validateIdFormat(Feature feature)
 	{
 		final boolean valid;
-		final String errorMessage = "Invalid FeatureId format.";
+		final String errorMessage = "Invalid FeatureId format: ";
 
 		valid = feature.getFeatureId().matches(FEATURE_ID_PREFIX);
 
 		if(!valid)
 		{
-			errorMessages.add(errorMessage);
+			errorMessages.add(errorMessage + feature.getFeatureId());
 		}
 
 		return valid;
@@ -51,8 +51,7 @@ public class FeatureValidator
 	{
 		boolean valid = true;
 
-		final String errorMessageSuffix = "IsViewable: " + feature.isViewable() + " IsEnabled: " + feature.isEnabled()
-				+ " IsActionable: " + feature.isActionable();
+		final String errorMessageSuffix = "IsViewable: " + feature.isViewable() + " IsEnabled: " + feature.isEnabled() + " IsActionable: " + feature.isActionable();
 		String errorMessage = "";
 
 		if(feature.isEnabled() && !feature.isViewable())
