@@ -12,7 +12,7 @@ public class ActiveFeatureHydrator
 	private static final String FEATURE_ID = "feature_id";
 	private static final String FEATURE_TYPE = "feature_type";
 	private static final String DESCRIPTION = "description";
-	private static final String ENABLED = "enabled";
+	private static final String ENABLED_BY_DEFAULT = "enabled_by_default";
 
 	private final FeatureValidator validator = new FeatureValidator();
 
@@ -24,7 +24,7 @@ public class ActiveFeatureHydrator
 				resultSet.getString(FEATURE_ID),
 				resultSet.getString(DESCRIPTION),
 				FeatureType.valueOf(resultSet.getString(FEATURE_TYPE)),
-				resultSet.getBoolean(ENABLED)
+				resultSet.getBoolean(ENABLED_BY_DEFAULT)
 			);
 
 
