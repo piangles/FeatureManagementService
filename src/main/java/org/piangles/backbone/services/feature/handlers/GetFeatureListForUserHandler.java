@@ -33,7 +33,10 @@ public class GetFeatureListForUserHandler
 
 		try
 		{
+			logger.info("Retrieving AllActiveFeatures for userId: " + userId);
 			List<Feature> activeFeatures = ftsDAO.getAllActiveFeatures(userId);
+			
+			logger.info("Retrieving AllConfiguredFeatures for userId: " + userId);
 			List<Feature> configuredFeatures = ftsDAO.getAllConfiguredFeatures(userId);
 			
 			Map<String, Feature> configuredFeaturesMap = convertToMap(configuredFeatures);

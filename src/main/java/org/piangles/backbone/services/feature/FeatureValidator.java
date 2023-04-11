@@ -1,5 +1,6 @@
 package org.piangles.backbone.services.feature;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +13,12 @@ public class FeatureValidator
 {
 
 	private static final String FEATURE_ID_PREFIX = "piangles-(fe|be|both)-.*$";
-	private List<String> errorMessages;
+	
+	private final List<String> errorMessages;
 
 	public FeatureValidator()
 	{
-		
+		errorMessages = new ArrayList<>();
 	}
 
 	public boolean isValid(Feature feature)
@@ -26,7 +28,7 @@ public class FeatureValidator
 
 	public String getErrorMessage()
 	{
-		return errorMessages.get(0);
+		return errorMessages.toString();
 	}
 
 	private boolean validateIdFormat(Feature feature)

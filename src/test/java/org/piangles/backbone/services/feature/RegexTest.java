@@ -4,9 +4,9 @@ public class RegexTest
 {
 	public static void main(String[] args)
 	{
-		final String REGEX = "zuro-(fe|be|both)-.*$";
+		final String REGEX = "piangles-(fe|be|both)-.*$";
 
-		String featureId = "zuro-be-card"; //should pass
+		String featureId = "piangles-both-card_payment"; //should pass
 
 		System.out.println(featureId.matches(REGEX));
 
