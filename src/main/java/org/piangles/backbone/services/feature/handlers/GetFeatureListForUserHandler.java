@@ -34,17 +34,17 @@ public class GetFeatureListForUserHandler
 		try
 		{
 			List<Feature> activeFeatures = ftsDAO.getAllActiveFeatures(userId);
-			List<Feature> enabledFeatures = ftsDAO.getAllEnabledFeatures(userId);
+			List<Feature> configuredFeatures = ftsDAO.getAllConfiguredFeatures(userId);
 			
-			Map<String, Feature> enabledFeaturesMap = convertToMap(enabledFeatures);
+			Map<String, Feature> configuredFeaturesMap = convertToMap(configuredFeatures);
 			
-			Feature enabledFeature = null;
+			Feature configuredFeature = null;
 			for (Feature activeFeature : activeFeatures)
 			{
-				enabledFeature = enabledFeaturesMap.get(activeFeature.getFeatureId()); 
-				if (enabledFeature != null)
+				configuredFeature = configuredFeaturesMap.get(activeFeature.getFeatureId()); 
+				if (configuredFeature != null)
 				{
-					featureList.addFeature(enabledFeature);
+					featureList.addFeature(configuredFeature);
 				}
 				else
 				{

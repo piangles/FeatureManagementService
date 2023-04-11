@@ -7,7 +7,7 @@ import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureType;
 import org.piangles.backbone.services.feature.FeatureValidator;
 
-public class EnabledFeatureHydrator
+public class ConfiguredFeatureHydrator
 {
 	private static final String FEATURE_ID = "feature_id";
 	private static final String FEATURE_TYPE = "feature_type";
@@ -16,6 +16,8 @@ public class EnabledFeatureHydrator
 	private static final String VIEWABLE = "viewable";
 	private static final String ACTIONABLE = "actionable";
 
+	private final FeatureValidator validator = new FeatureValidator();
+	
 	public Feature apply(ResultSet resultSet) throws SQLException
 	{
 		Feature feature = null;
@@ -29,10 +31,7 @@ public class EnabledFeatureHydrator
 				resultSet.getBoolean(ACTIONABLE)
 			);
 
-
-		final FeatureValidator validator = new FeatureValidator(feature);
-
-		if(!validator.isValid())
+		if(!validator.isValid(feature))
 		{
 			throw new SQLException(validator.getErrorMessage());
 		}

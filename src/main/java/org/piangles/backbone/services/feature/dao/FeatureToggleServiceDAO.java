@@ -8,5 +8,5 @@ import org.piangles.core.dao.DAOException;
 public interface FeatureToggleServiceDAO
 {
 	public List<Feature> getAllActiveFeatures(String userId) throws DAOException;
-	public List<Feature> getAllEnabledFeatures(String userId) throws DAOException;
+	public List<Feature> getAllConfiguredFeatures(String userId) throws DAOException;
 }

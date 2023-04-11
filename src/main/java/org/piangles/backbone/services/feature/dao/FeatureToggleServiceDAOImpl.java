@@ -14,17 +14,17 @@ public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements Fe
 	private static final String COMPONENT_ID = "70cdde51-98b8-445c-87dd-fd5cc7da7288";
 	
 	private static final String GET_ALL_ACTIVE_FEATURES = "feature.get_all_active_features";
-	private static final String GET_ALL_ENABLED_FEATURES = "feature.get_all_enabled_features";
+	private static final String GET_ALL_CONFIGURED_FEATURES = "feature.get_all_configured_features";
 
 	private final ActiveFeatureHydrator activeFeatureHydrator;
-	private final EnabledFeatureHydrator enabledFeatureHydrator;
+	private final ConfiguredFeatureHydrator configuredFeatureHydrator;
 
-	public FeatureToggleServiceDAOImpl(EnabledFeatureHydrator hydrator) throws Exception
+	public FeatureToggleServiceDAOImpl(ConfiguredFeatureHydrator hydrator) throws Exception
 	{
 		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureToggleService.NAME, COMPONENT_ID)));
 		
 		this.activeFeatureHydrator = new ActiveFeatureHydrator();
-		this.enabledFeatureHydrator = new EnabledFeatureHydrator();
+		this.configuredFeatureHydrator = new ConfiguredFeatureHydrator();
 	}
 
 	@Override
@@ -41,15 +41,15 @@ public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements Fe
 	}
 
 	@Override
-	public List<Feature> getAllEnabledFeatures(String userId) throws DAOException
+	public List<Feature> getAllConfiguredFeatures(String userId) throws DAOException
 	{
-		List<Feature> enabledFeatures = null;
+		List<Feature> configuredFeatures = null;
 		
-		enabledFeatures = super.executeSPQueryList(GET_ALL_ENABLED_FEATURES, 1, (stmt) ->
+		configuredFeatures = super.executeSPQueryList(GET_ALL_CONFIGURED_FEATURES, 1, (stmt) ->
 		{
 			stmt.setString(1, userId);
-		}, (rs, call) -> enabledFeatureHydrator.apply(rs));
+		}, (rs, call) -> configuredFeatureHydrator.apply(rs));
 
-		return enabledFeatures;
+		return configuredFeatures;
 	}
 }

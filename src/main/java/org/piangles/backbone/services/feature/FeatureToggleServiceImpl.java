@@ -2,7 +2,7 @@ package org.piangles.backbone.services.feature;
 
 import org.piangles.backbone.services.Locator;
 import org.piangles.backbone.services.config.Configuration;
-import org.piangles.backbone.services.feature.dao.EnabledFeatureHydrator;
+import org.piangles.backbone.services.feature.dao.ConfiguredFeatureHydrator;
 import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAO;
 import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAOImpl;
 import org.piangles.backbone.services.feature.handlers.GetFeatureListForUserHandler;
@@ -26,7 +26,7 @@ public class FeatureToggleServiceImpl implements FeatureToggleService
 		
 		ftConfig = new FeatureToggleConfiguration(config);
 		
-		ftsDAO = new FeatureToggleServiceDAOImpl(new EnabledFeatureHydrator());
+		ftsDAO = new FeatureToggleServiceDAOImpl(new ConfiguredFeatureHydrator());
 		
 		this.getFeatureListForUserHandler = new GetFeatureListForUserHandler(logger, ftConfig, ftsDAO);
 	}

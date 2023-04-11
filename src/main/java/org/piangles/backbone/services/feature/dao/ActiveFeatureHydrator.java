@@ -14,6 +14,8 @@ public class ActiveFeatureHydrator
 	private static final String DESCRIPTION = "description";
 	private static final String ENABLED = "enabled";
 
+	private final FeatureValidator validator = new FeatureValidator();
+
 	public Feature apply(ResultSet resultSet) throws SQLException
 	{
 		Feature feature = null;
@@ -26,9 +28,8 @@ public class ActiveFeatureHydrator
 			);
 
 
-		final FeatureValidator validator = new FeatureValidator(feature);
 
-		if(!validator.isValid())
+		if(!validator.isValid(feature))
 		{
 			throw new SQLException(validator.getErrorMessage());
 		}

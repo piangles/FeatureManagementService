@@ -14,19 +14,22 @@ public class FeatureValidator
 	private static final String FEATURE_ID_PREFIX = "piangles-(fe|be|both)-.*$";
 	private List<String> errorMessages;
 
-	private final Feature feature;
-
-	public FeatureValidator(Feature feature)
+	public FeatureValidator()
 	{
-		this.feature = feature;
+		
 	}
 
-	public boolean isValid()
+	public boolean isValid(Feature feature)
 	{
-		return !validateIdFormat() || !validateFeatureState();
+		return !validateIdFormat(feature);// || !validateFeatureState(feature);
 	}
 
-	private boolean validateIdFormat()
+	public String getErrorMessage()
+	{
+		return errorMessages.get(0);
+	}
+
+	private boolean validateIdFormat(Feature feature)
 	{
 		final boolean valid;
 		final String errorMessage = "Invalid FeatureId format.";
@@ -41,12 +44,8 @@ public class FeatureValidator
 		return valid;
 	}
 
-	public String getErrorMessage()
-	{
-		return errorMessages.get(0);
-	}
-
-	private boolean validateFeatureState()
+	@SuppressWarnings("unused")
+	private boolean validateFeatureState(Feature feature)
 	{
 		boolean valid = true;
 
@@ -73,7 +72,4 @@ public class FeatureValidator
 
 		return valid;
 	}
-
-
-
 }
