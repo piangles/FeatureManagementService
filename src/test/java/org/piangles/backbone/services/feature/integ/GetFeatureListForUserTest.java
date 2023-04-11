@@ -17,7 +17,7 @@ public class GetFeatureListForUserTest extends AbstractServiceTestClient
 	{
 		final FeatureToggleService featureToggleService = Locator.getInstance().getFeatureToggleService();
 
-		final FeatureList featureList = featureToggleService.getFeatures("d4a7277", "bizId");
+		final FeatureList featureList = featureToggleService.getFeatureList("d4a7277");
 
 		System.out.println(featureList);
 	}

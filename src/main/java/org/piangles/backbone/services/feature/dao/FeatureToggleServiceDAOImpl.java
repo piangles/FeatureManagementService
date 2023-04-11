@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.piangles.backbone.services.config.DefaultConfigProvider;
 import org.piangles.backbone.services.feature.Feature;
-import org.piangles.backbone.services.feature.FeatureList;
 import org.piangles.backbone.services.feature.FeatureToggleService;
 import org.piangles.core.dao.DAOException;
 import org.piangles.core.dao.rdbms.AbstractDAO;
@@ -13,29 +12,44 @@ import org.piangles.core.resources.ResourceManager;
 public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements FeatureToggleServiceDAO
 {
 	private static final String COMPONENT_ID = "70cdde51-98b8-445c-87dd-fd5cc7da7288";
-	private static final String GET_FEATURE_LIST = "feature.get_feature_list";
+	
+	private static final String GET_ALL_ACTIVE_FEATURES = "feature.get_all_active_features";
+	private static final String GET_ALL_ENABLED_FEATURES = "feature.get_all_enabled_features";
 
-	private final FeatureListHydrator hydrator;
+	private final ActiveFeatureHydrator activeFeatureHydrator;
+	private final EnabledFeatureHydrator enabledFeatureHydrator;
 
-	public FeatureToggleServiceDAOImpl(FeatureListHydrator hydrator) throws Exception
+	public FeatureToggleServiceDAOImpl(EnabledFeatureHydrator hydrator) throws Exception
 	{
 		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureToggleService.NAME, COMPONENT_ID)));
 		
-		this.hydrator = new FeatureListHydrator();
+		this.activeFeatureHydrator = new ActiveFeatureHydrator();
+		this.enabledFeatureHydrator = new EnabledFeatureHydrator();
 	}
 
 	@Override
-	public FeatureList getFeatureList(String userId, String bizId) throws DAOException
+	public List<Feature> getAllActiveFeatures(String userId) throws DAOException
 	{
-		final FeatureList featureList = new FeatureList(userId, bizId);
+		List<Feature> activeFeatures = null;
+		
+		activeFeatures = super.executeSPQueryList(GET_ALL_ACTIVE_FEATURES, 0, (stmt) ->
+		{
+		}, (rs, call) -> activeFeatureHydrator.apply(rs));
 
-		final List<Feature> features = super.executeSPQueryList(GET_FEATURE_LIST, 1, (stmt) ->
+		
+		return activeFeatures;
+	}
+
+	@Override
+	public List<Feature> getAllEnabledFeatures(String userId) throws DAOException
+	{
+		List<Feature> enabledFeatures = null;
+		
+		enabledFeatures = super.executeSPQueryList(GET_ALL_ENABLED_FEATURES, 1, (stmt) ->
 		{
 			stmt.setString(1, userId);
-		}, (rs, call) -> hydrator.apply(rs));
+		}, (rs, call) -> enabledFeatureHydrator.apply(rs));
 
-		features.forEach(feature -> featureList.addFeature(feature));
-
-		return featureList;
+		return enabledFeatures;
 	}
 }

@@ -2,7 +2,7 @@ package org.piangles.backbone.services.feature;
 
 import org.piangles.backbone.services.Locator;
 import org.piangles.backbone.services.config.Configuration;
-import org.piangles.backbone.services.feature.dao.FeatureListHydrator;
+import org.piangles.backbone.services.feature.dao.EnabledFeatureHydrator;
 import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAO;
 import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAOImpl;
 import org.piangles.backbone.services.feature.handlers.GetFeatureListForUserHandler;
@@ -26,16 +26,16 @@ public class FeatureToggleServiceImpl implements FeatureToggleService
 		
 		ftConfig = new FeatureToggleConfiguration(config);
 		
-		ftsDAO = new FeatureToggleServiceDAOImpl(new FeatureListHydrator());
+		ftsDAO = new FeatureToggleServiceDAOImpl(new EnabledFeatureHydrator());
 		
 		this.getFeatureListForUserHandler = new GetFeatureListForUserHandler(logger, ftConfig, ftsDAO);
 	}
 
 	@Override
-	public FeatureList getFeatures(String userId, String bizId) throws FeatureException
+	public FeatureList getFeatureList(String userId) throws FeatureException
 	{
-		logger.info("Retrieving Features for userId: " + userId + " bizId: " + bizId);
+		logger.info("Retrieving Features for userId: " + userId);
 
-		return getFeatureListForUserHandler.handle(userId, bizId);
+		return getFeatureListForUserHandler.handle(userId);
 	}
 }
