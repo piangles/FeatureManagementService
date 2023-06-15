@@ -5,11 +5,12 @@ import java.util.List;
 import org.piangles.backbone.services.config.DefaultConfigProvider;
 import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureToggleService;
+import org.piangles.backbone.services.feature.Group;
 import org.piangles.core.dao.DAOException;
 import org.piangles.core.dao.rdbms.AbstractDAO;
 import org.piangles.core.resources.ResourceManager;
 
-public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements FeatureToggleServiceDAO
+public final class FeatureManagementServiceDAOImpl extends AbstractDAO implements FeatureManagementServiceDAO
 {
 	private static final String COMPONENT_ID = "70cdde51-98b8-445c-87dd-fd5cc7da7288";
 	
@@ -19,12 +20,34 @@ public final class FeatureToggleServiceDAOImpl extends AbstractDAO implements Fe
 	private final ActiveFeatureHydrator activeFeatureHydrator;
 	private final ConfiguredFeatureHydrator configuredFeatureHydrator;
 
-	public FeatureToggleServiceDAOImpl(ConfiguredFeatureHydrator hydrator) throws Exception
+	public FeatureManagementServiceDAOImpl(ConfiguredFeatureHydrator hydrator) throws Exception
 	{
 		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureToggleService.NAME, COMPONENT_ID)));
 		
 		this.activeFeatureHydrator = new ActiveFeatureHydrator();
 		this.configuredFeatureHydrator = new ConfiguredFeatureHydrator();
+	}
+
+	@Override
+	public List<Group> getAllGroups() throws DAOException
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public void addUserToGroup(String userId, String groupId) throws DAOException
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeUserFromGroup(String userId, String groupId) throws DAOException
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

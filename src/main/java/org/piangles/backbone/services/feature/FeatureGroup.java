@@ -1,10 +1,13 @@
 package org.piangles.backbone.services.feature;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeatureGroup
+public class FeatureGroup implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	private String groupName;
 	
 	private List<String> featureIds;

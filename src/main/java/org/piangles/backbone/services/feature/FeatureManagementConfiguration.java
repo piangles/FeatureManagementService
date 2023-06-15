@@ -2,14 +2,14 @@ package org.piangles.backbone.services.feature;
 
 import org.piangles.backbone.services.config.Configuration;
 
-public class FeatureToggleConfiguration
+public class FeatureManagementConfiguration
 {
 	private static final String ENABLED_BY_DEFAULT = "EnabledByDefault";
 	
 	
 	private final boolean enabledByDefault; //viewables / actionable
 	
-	public FeatureToggleConfiguration(Configuration config)
+	public FeatureManagementConfiguration(Configuration config)
 	{
 		enabledByDefault = Boolean.parseBoolean(config.getValue(ENABLED_BY_DEFAULT));
 	}

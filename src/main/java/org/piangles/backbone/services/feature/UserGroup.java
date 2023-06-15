@@ -1,10 +1,13 @@
 package org.piangles.backbone.services.feature;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class UserGroup
+public final class UserGroup implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	private String groupName;
 	
 	private List<String> userIds;

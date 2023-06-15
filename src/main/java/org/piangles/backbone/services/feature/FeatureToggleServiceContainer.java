@@ -31,7 +31,7 @@ public class FeatureToggleServiceContainer extends AbstractContainer
 		FeatureToggleService service = null;
 		try
 		{
-			service =  new FeatureToggleServiceImpl();
+			service =  new FeatureManagementServiceImpl();
 		}
 		catch (Exception e)
 		{

@@ -1,30 +1,21 @@
 package org.piangles.backbone.services.feature.handlers;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureException;
 import org.piangles.backbone.services.feature.FeatureList;
-import org.piangles.backbone.services.feature.FeatureToggleConfiguration;
-import org.piangles.backbone.services.feature.dao.FeatureToggleServiceDAO;
+import org.piangles.backbone.services.feature.FeatureManagementConfiguration;
+import org.piangles.backbone.services.feature.dao.FeatureManagementServiceDAO;
 import org.piangles.backbone.services.logging.LoggingService;
 import org.piangles.core.dao.DAOException;
 
-public class GetFeatureListForUserHandler
+public class GetFeatureListForUserHandler extends AbstractHandler
 {
-	private final LoggingService logger;
-	@SuppressWarnings("unused")
-	private final FeatureToggleConfiguration ftConfig;
-	private final FeatureToggleServiceDAO ftsDAO;
-
-	public GetFeatureListForUserHandler(LoggingService logger, FeatureToggleConfiguration ftConfig, FeatureToggleServiceDAO ftsDAO)
+	public GetFeatureListForUserHandler(LoggingService logger, FeatureManagementConfiguration fmConfig, FeatureManagementServiceDAO fmsDAO)
 	{
-		this.logger = logger;
-		this.ftConfig = ftConfig;
-		this.ftsDAO = ftsDAO;
+		super(logger, fmConfig, fmsDAO);
 	}
 
 	public FeatureList handle(String userId) throws FeatureException
@@ -34,12 +25,12 @@ public class GetFeatureListForUserHandler
 		try
 		{
 			logger.info("Retrieving AllActiveFeatures for userId: " + userId);
-			List<Feature> activeFeatures = ftsDAO.getAllActiveFeatures(userId);
+			List<Feature> activeFeatures = getFMSDAO().getAllActiveFeatures(userId);
 			
 			logger.info("Retrieving AllConfiguredFeatures for userId: " + userId);
-			List<Feature> configuredFeatures = ftsDAO.getAllConfiguredFeatures(userId);
+			List<Feature> configuredFeatures = getFMSDAO().getAllConfiguredFeatures(userId);
 			
-			Map<String, Feature> configuredFeaturesMap = convertToMap(configuredFeatures);
+			Map<String, Feature> configuredFeaturesMap = convertToFeatureMap(configuredFeatures);
 			
 			Feature configuredFeature = null;
 			for (Feature activeFeature : activeFeatures)
@@ -66,17 +57,5 @@ public class GetFeatureListForUserHandler
 		logger.info("FeatureList for userId: " + userId + " " + featureList);
 
 		return featureList;
-	}
-	
-	private Map<String, Feature> convertToMap(List<Feature> features)
-	{
-		Map<String, Feature> featureMap = new HashMap<>();
-		
-		if (features != null)
-		{
-			featureMap = features.stream().collect(Collectors.toMap(Feature::getFeatureId, feature -> feature));
-		}
-		
-		return featureMap;
 	}
 }
