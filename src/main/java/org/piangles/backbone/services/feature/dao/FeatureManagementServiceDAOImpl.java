@@ -14,10 +14,15 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 {
 	private static final String COMPONENT_ID = "70cdde51-98b8-445c-87dd-fd5cc7da7288";
 	
+	private static final String GET_ALL_GROUPS = "feature.get_all_groups";
+	private static final String ADD_USER_TO_GROUP = "feature.add_user_to_group";
+	private static final String REMOVE_USER_FROM_GROUP = "feature.remove_user_from_group";
+	
 	private static final String GET_ALL_ACTIVE_FEATURES = "feature.get_all_active_features";
 	private static final String GET_ALL_CONFIGURED_FEATURES = "feature.get_all_configured_features";
 
 	private final ActiveFeatureHydrator activeFeatureHydrator;
+	private final GroupHydrator groupHydrator;
 	private final ConfiguredFeatureHydrator configuredFeatureHydrator;
 
 	public FeatureManagementServiceDAOImpl(ConfiguredFeatureHydrator hydrator) throws Exception
@@ -25,29 +30,40 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureToggleService.NAME, COMPONENT_ID)));
 		
 		this.activeFeatureHydrator = new ActiveFeatureHydrator();
+		this.groupHydrator = new GroupHydrator();
 		this.configuredFeatureHydrator = new ConfiguredFeatureHydrator();
 	}
 
 	@Override
 	public List<Group> getAllGroups() throws DAOException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<Group> groups = null;
+		
+		groups = super.executeSPQueryList(GET_ALL_GROUPS, 0, (stmt) ->
+		{
+		}, (rs, call) -> groupHydrator.apply(rs));
+
+		
+		return groups;
 	}
 	
 	@Override
 	public void addUserToGroup(String userId, String groupId) throws DAOException
 	{
-		// TODO Auto-generated method stub
-		
+		super.executeSP(ADD_USER_TO_GROUP, 2, (call)->{
+			call.setString(1, userId);
+			call.setString(2, groupId);
+		});
 	}
 
 
 	@Override
 	public void removeUserFromGroup(String userId, String groupId) throws DAOException
 	{
-		// TODO Auto-generated method stub
-		
+		super.executeSP(REMOVE_USER_FROM_GROUP, 2, (call)->{
+			call.setString(1, userId);
+			call.setString(2, groupId);
+		});
 	}
 
 	@Override
