@@ -9,6 +9,7 @@ import org.piangles.backbone.services.feature.handlers.AddUserToGroupHandler;
 import org.piangles.backbone.services.feature.handlers.GetFeatureListForUserHandler;
 import org.piangles.backbone.services.feature.handlers.RemoveUserFromGroupHandler;
 import org.piangles.backbone.services.logging.LoggingService;
+import org.piangles.core.dao.DAOException;
 
 public class FeatureManagementServiceImpl implements FeatureToggleService
 {
@@ -62,4 +63,21 @@ public class FeatureManagementServiceImpl implements FeatureToggleService
 
 		return getFeatureListForUserHandler.handle(userId);
 	}
+
+    @Override
+    public void updateFeature(UpdateFeatureRequest request) throws FeatureException
+    {
+        logger.info(String.format("Received a request to update featureId: %s of groupId: %s to enabled: %b", request.getFeatureId(), request.getGroupId(), request.isEnabled()));
+
+        try
+        {
+            ftsDAO.updateFeature(request);
+        }
+        catch (DAOException e)
+        {
+            final String errMsg = String.format("Failed to update featureId: %s of groupId: %s to enabled: %b due to: %s", request.getFeatureId(), request.getGroupId(), request.isEnabled(), e.getMessage());
+            logger.error(errMsg, e);
+            throw new FeatureException(errMsg);
+        }
+    }
 }

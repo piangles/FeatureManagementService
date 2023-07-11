@@ -20,6 +20,7 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 	
 	private static final String GET_ALL_ACTIVE_FEATURES = "feature.get_all_active_features";
 	private static final String GET_ALL_CONFIGURED_FEATURES = "feature.get_all_configured_features";
+    private static final String TOGGLE_FEATURE_FROM_GROUP = "feature.toggle_feature_group";
 
 	private final ActiveFeatureHydrator activeFeatureHydrator;
 	private final GroupHydrator groupHydrator;
@@ -91,4 +92,14 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 
 		return configuredFeatures;
 	}
+
+  @Override
+  public void updateFeature(UpdateFeatureRequest request) throws DAOException
+  {
+      super.executeSP(TOGGLE_FEATURE_FROM_GROUP, 3, (call)->{
+          call.setString(1, request.getGroupId());
+          call.setString(2, request.getFeatureId());
+          call.setBoolean(3, request.isEnabled());
+      });
+  }
 }
