@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.Group;
+import org.piangles.backbone.services.feature.UpdateFeatureRequest;
 import org.piangles.core.dao.DAOException;
 
 public interface FeatureManagementServiceDAO
