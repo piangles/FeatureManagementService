@@ -6,6 +6,7 @@ import org.piangles.backbone.services.config.DefaultConfigProvider;
 import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureToggleService;
 import org.piangles.backbone.services.feature.Group;
+import org.piangles.backbone.services.feature.UpdateFeatureRequest;
 import org.piangles.core.dao.DAOException;
 import org.piangles.core.dao.rdbms.AbstractDAO;
 import org.piangles.core.resources.ResourceManager;

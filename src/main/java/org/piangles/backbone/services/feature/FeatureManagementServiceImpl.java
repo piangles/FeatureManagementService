@@ -2,6 +2,7 @@ package org.piangles.backbone.services.feature;
 
 import org.piangles.backbone.services.Locator;
 import org.piangles.backbone.services.config.Configuration;
+import org.piangles.backbone.services.feature.UpdateFeatureRequest;
 import org.piangles.backbone.services.feature.dao.ConfiguredFeatureHydrator;
 import org.piangles.backbone.services.feature.dao.FeatureManagementServiceDAO;
 import org.piangles.backbone.services.feature.dao.FeatureManagementServiceDAOImpl;
