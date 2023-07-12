@@ -17,4 +17,6 @@ public interface FeatureManagementServiceDAO
 	public List<Feature> getAllActiveFeatures(String userId) throws DAOException;
 	public List<Feature> getAllConfiguredFeatures(String userId) throws DAOException;
     void updateFeature(UpdateFeatureRequest request) throws DAOException;
+	List<FeatureGroup> getAllFeatureGroups() throws DAOException;
+
 }

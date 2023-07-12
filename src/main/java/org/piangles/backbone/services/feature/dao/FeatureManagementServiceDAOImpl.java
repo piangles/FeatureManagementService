@@ -22,10 +22,12 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 	private static final String GET_ALL_ACTIVE_FEATURES = "feature.get_all_active_features";
 	private static final String GET_ALL_CONFIGURED_FEATURES = "feature.get_all_configured_features";
     private static final String TOGGLE_FEATURE_FROM_GROUP = "feature.toggle_feature_group";
+	private static final String GET_ALL_GROUPS_WITH_FEATURES = "feature.get_all_groups_with_features";
 
 	private final ActiveFeatureHydrator activeFeatureHydrator;
 	private final GroupHydrator groupHydrator;
 	private final ConfiguredFeatureHydrator configuredFeatureHydrator;
+	private final FeatureGroupHydrator featureGroupHydrator;
 
 	public FeatureManagementServiceDAOImpl(ConfiguredFeatureHydrator hydrator) throws Exception
 	{
@@ -34,6 +36,7 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 		this.activeFeatureHydrator = new ActiveFeatureHydrator();
 		this.groupHydrator = new GroupHydrator();
 		this.configuredFeatureHydrator = new ConfiguredFeatureHydrator();
+		this.featureGroupHydrator = new FeatureGroupHydrator();
 	}
 
 	@Override
@@ -103,4 +106,15 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
           call.setBoolean(3, request.isEnabled());
       });
   }
+
+	@Override
+	public 	List<FeatureGroup> getAllFeatureGroups() throws DAOException
+	{
+		List<FeatureGroup> featureGroupList = null;
+
+		featureGroupList = super.executeSPQueryList(GET_ALL_GROUPS_WITH_FEATURES, 0, (stmt) ->
+		{}, (rs, call) -> featureGroupHydrator.apply(rs));
+
+		return featureGroupList;
+	}
 }

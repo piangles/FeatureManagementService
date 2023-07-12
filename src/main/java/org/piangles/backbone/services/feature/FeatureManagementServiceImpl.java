@@ -2,15 +2,18 @@ package org.piangles.backbone.services.feature;
 
 import org.piangles.backbone.services.Locator;
 import org.piangles.backbone.services.config.Configuration;
-import org.piangles.backbone.services.feature.UpdateFeatureRequest;
 import org.piangles.backbone.services.feature.dao.ConfiguredFeatureHydrator;
 import org.piangles.backbone.services.feature.dao.FeatureManagementServiceDAO;
 import org.piangles.backbone.services.feature.dao.FeatureManagementServiceDAOImpl;
 import org.piangles.backbone.services.feature.handlers.AddUserToGroupHandler;
 import org.piangles.backbone.services.feature.handlers.GetFeatureListForUserHandler;
+import org.piangles.backbone.services.feature.handlers.GetGroupsWithFeaturesHandler;
 import org.piangles.backbone.services.feature.handlers.RemoveUserFromGroupHandler;
 import org.piangles.backbone.services.logging.LoggingService;
 import org.piangles.core.dao.DAOException;
+
+import java.util.List;
+import java.util.Map;
 
 public class FeatureManagementServiceImpl implements FeatureToggleService
 {
@@ -25,6 +28,8 @@ public class FeatureManagementServiceImpl implements FeatureToggleService
 	private final AddUserToGroupHandler addUserToGroupHandler; 
 	private final RemoveUserFromGroupHandler removeUserFromGroupHandler; 
 	private final GetFeatureListForUserHandler getFeatureListForUserHandler;
+	
+	private final GetGroupsWithFeaturesHandler getGroupsWithFeaturesHandler;
 
 	public FeatureManagementServiceImpl() throws Exception
 	{
@@ -38,6 +43,9 @@ public class FeatureManagementServiceImpl implements FeatureToggleService
 		this.removeUserFromGroupHandler = new RemoveUserFromGroupHandler(logger, ftConfig, ftsDAO);
 
 		this.getFeatureListForUserHandler = new GetFeatureListForUserHandler(logger, ftConfig, ftsDAO);
+
+		this.getGroupsWithFeaturesHandler = new GetGroupsWithFeaturesHandler(logger, ftConfig, ftsDAO);
+		
 	}
 
 	@Override
@@ -81,4 +89,11 @@ public class FeatureManagementServiceImpl implements FeatureToggleService
             throw new FeatureException(errMsg);
         }
     }
+
+	public Map<String, List<Feature>> getAllGroupsWithFeatures() throws FeatureException 
+	{
+		logger.info("Received a request to getAllGroupsWithFeatures");
+		return getGroupsWithFeaturesHandler.handle();
+	}
+
 }
