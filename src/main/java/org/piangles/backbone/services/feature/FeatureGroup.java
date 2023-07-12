@@ -1,8 +1,6 @@
 package org.piangles.backbone.services.feature;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FeatureGroup implements Serializable
 {
@@ -10,12 +8,21 @@ public class FeatureGroup implements Serializable
 
 	private String groupName;
 	
-	private List<String> featureIds;
+	private String featureId;
+
+	private String featureDescription;
 	
-	public FeatureGroup(String groupName)
+	private FeatureType featureType;
+
+	private boolean enabled;
+
+	public FeatureGroup(String groupName, String featureId, String featureDescription, FeatureType featureType, boolean enabled)
 	{
 		this.groupName = groupName;
-		this.featureIds = new ArrayList<String>(); 
+		this.featureId = featureId;
+		this.featureDescription = featureDescription;
+		this.featureType = featureType;
+		this.enabled = enabled;
 	}
 	
 	public String getGroupName()
@@ -23,13 +30,21 @@ public class FeatureGroup implements Serializable
 		return groupName;
 	}
 	
-	public List<String> getFeatureIds()
+	public String getFeatureId() {
+		return featureId;
+	}
+
+	public String getFeatureDescription() {
+		return featureDescription;
+	}
+
+	public FeatureType getFeatureType()
 	{
-		return featureIds;
+		return featureType;
 	}
 	
-	public void add(String featureId)
+	public boolean isEnabled()
 	{
-		featureIds.add(featureId);
+		return enabled;
 	}
 }
