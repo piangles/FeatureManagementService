@@ -1,6 +1,5 @@
 package org.piangles.backbone.services.feature.dao;
 
-import org.piangles.backbone.services.feature.FeatureGroup;
 import org.piangles.backbone.services.feature.FeatureType;
 
 import java.sql.ResultSet;

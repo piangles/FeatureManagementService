@@ -1,4 +1,6 @@
-package org.piangles.backbone.services.feature;
+package org.piangles.backbone.services.feature.dao;
+
+import org.piangles.backbone.services.feature.FeatureType;
 
 import java.io.Serializable;
 

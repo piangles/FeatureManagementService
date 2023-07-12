@@ -3,7 +3,7 @@ package org.piangles.backbone.services.feature.handlers;
 import org.piangles.backbone.services.feature.Feature;
 import org.piangles.backbone.services.feature.FeatureException;
 import org.piangles.backbone.services.feature.FeatureManagementConfiguration;
-import org.piangles.backbone.services.feature.FeatureGroup;
+import org.piangles.backbone.services.feature.dao.FeatureGroup;
 import org.piangles.backbone.services.feature.dao.FeatureManagementServiceDAO;
 import org.piangles.backbone.services.logging.LoggingService;
 import org.piangles.core.dao.DAOException;
