@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.piangles.backbone.services.config.DefaultConfigProvider;
 import org.piangles.backbone.services.feature.Feature;
-import org.piangles.backbone.services.feature.FeatureToggleService;
+import org.piangles.backbone.services.feature.FeatureManagementService;
 import org.piangles.backbone.services.feature.Group;
 import org.piangles.backbone.services.feature.UpdateFeatureRequest;
 import org.piangles.core.dao.DAOException;
@@ -31,7 +31,7 @@ public final class FeatureManagementServiceDAOImpl extends AbstractDAO implement
 
 	public FeatureManagementServiceDAOImpl(ConfiguredFeatureHydrator hydrator) throws Exception
 	{
-		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureToggleService.NAME, COMPONENT_ID)));
+		super.init(ResourceManager.getInstance().getRDBMSDataStore(new DefaultConfigProvider(FeatureManagementService.NAME, COMPONENT_ID)));
 		
 		this.activeFeatureHydrator = new ActiveFeatureHydrator();
 		this.groupHydrator = new GroupHydrator();

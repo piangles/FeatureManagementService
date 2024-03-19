@@ -4,11 +4,11 @@ import org.piangles.core.email.EmailSupport;
 import org.piangles.core.services.remoting.AbstractContainer;
 import org.piangles.core.services.remoting.ContainerException;
 
-public class FeatureToggleServiceContainer extends AbstractContainer
+public class FeatureManagementServiceContainer extends AbstractContainer
 {
 	public static void main(String[] args)
 	{
-		FeatureToggleServiceContainer container = new FeatureToggleServiceContainer();
+		FeatureManagementServiceContainer container = new FeatureManagementServiceContainer();
 		try
 		{
 			container.performSteps(args);
@@ -20,15 +20,15 @@ public class FeatureToggleServiceContainer extends AbstractContainer
 		}
 	}
 
-	public FeatureToggleServiceContainer()
+	public FeatureManagementServiceContainer()
 	{
-		super(FeatureToggleService.NAME);
+		super(FeatureManagementService.NAME);
 	}
 
 	@Override
 	protected Object createServiceImpl() throws ContainerException
 	{
-		FeatureToggleService service = null;
+		FeatureManagementService service = null;
 		try
 		{
 			service =  new FeatureManagementServiceImpl();

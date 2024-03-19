@@ -15,7 +15,7 @@ import org.piangles.core.dao.DAOException;
 import java.util.List;
 import java.util.Map;
 
-public class FeatureManagementServiceImpl implements FeatureToggleService
+public class FeatureManagementServiceImpl implements FeatureManagementService
 {
 	private static final String COMPONENT_ID = "58185aed-c78d-4694-8e5f-f0a03d29cbd8";
 	
